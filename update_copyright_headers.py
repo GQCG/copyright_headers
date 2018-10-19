@@ -1,5 +1,11 @@
 import os
 import glob
+import argparse
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('header_path', metavar='H', type=str, help="The file that contains the copyright header to be included in the source code files.")
+arguments = parser.parse_args()
 
 
 def prepend_code(text, prepending_characters):
@@ -15,7 +21,6 @@ def prepend_code(text, prepending_characters):
 
 # Find the relevant files and directories
 tools_directory_path = os.path.dirname(os.path.realpath(__file__))
-header_path = os.path.join(tools_directory_path, 'HEADER')
 library_directory_path = os.path.dirname(tools_directory_path)  # parent of 'tools'
 
 include_directory_path = os.path.join(library_directory_path, 'include')
@@ -30,7 +35,7 @@ executable_files = glob.glob(exe_directory_path + "/*.cpp")
 
 
 # Add or update the header in every header (.hpp) or source file (.cpp)
-with open(header_path, 'r') as f_header:
+with open(arguments.header_path, 'r') as f_header:
     header_text = f_header.read()  # read in the whole header
     header_text_commented = prepend_code(header_text, '// ')  # '//' for comments in C++
     header_text_commented += '\n'  # we need an extra (non-commented) newline at the end
