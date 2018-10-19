@@ -21,17 +21,20 @@ def prepend_code(text, prepending_characters):
 
 
 # Find the relevant files and directories
-library_directory_path = arguments.root_path
+root_path = os.path.abspath(arguments.root_path)
 
-include_directory_path = os.path.join(library_directory_path, 'include')
-header_files = glob.glob(include_directory_path + "/*.hpp")
+include_directory_path = os.path.join(root_path, 'include')
+header_files = glob.glob(include_directory_path + "/**/*.hpp", recursive=True)
 header_files.extend(glob.glob(include_directory_path + "/include/*.hpp.in"))
 
-src_directory_path = os.path.join(library_directory_path, 'src')
-source_files = glob.glob(src_directory_path + "/*.cpp")
+src_directory_path = os.path.join(root_path, 'src')
+source_files = glob.glob(src_directory_path + "/**/*.cpp", recursive=True)
 
-exe_directory_path = os.path.join(library_directory_path, 'exe')
-executable_files = glob.glob(exe_directory_path + "/*.cpp")
+exe_directory_path = os.path.join(root_path, 'exe')
+executable_files = glob.glob(exe_directory_path + "/**/*.cpp", recursive=True)
+
+tests_directory_path = os.path.join(root_path, 'tests')
+executable_files = glob.glob(tests_directory_path + "/**/*.cpp", recursive=True)
 
 
 # Add or update the header in every header (.hpp) or source file (.cpp)
