@@ -25,7 +25,7 @@ root_path = os.path.abspath(arguments.root_path)
 
 include_directory_path = os.path.join(root_path, 'include')
 header_files = glob.glob(include_directory_path + "/**/*.hpp", recursive=True)
-header_files.extend(glob.glob(include_directory_path + "/include/*.hpp.in"))
+header_files.extend(glob.glob(include_directory_path + "/**/*.in", recursive=True))
 
 src_directory_path = os.path.join(root_path, 'src')
 source_files = glob.glob(src_directory_path + "/**/*.cpp", recursive=True)
