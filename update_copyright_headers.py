@@ -4,7 +4,8 @@ import argparse
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('header_path', metavar='H', type=str, help="The file that contains the copyright header to be included in the source code files.")
+parser.add_argument('header_path', metavar='H', type=str, help="The path to the file that contains the copyright header to be included in the source code files.")
+parser.add_argument('root_path', metavar='R', type=str, help="The path to the root of the project directory that contains the source code files.")
 arguments = parser.parse_args()
 
 
@@ -20,8 +21,7 @@ def prepend_code(text, prepending_characters):
 
 
 # Find the relevant files and directories
-tools_directory_path = os.path.dirname(os.path.realpath(__file__))
-library_directory_path = os.path.dirname(tools_directory_path)  # parent of 'tools'
+library_directory_path = arguments.root_path
 
 include_directory_path = os.path.join(library_directory_path, 'include')
 header_files = glob.glob(include_directory_path + "/*.hpp")
