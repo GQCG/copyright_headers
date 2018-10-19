@@ -20,6 +20,7 @@ library_directory_path = os.path.dirname(tools_directory_path)  # parent of 'too
 
 include_directory_path = os.path.join(library_directory_path, 'include')
 header_files = glob.glob(include_directory_path + "/*.hpp")
+header_files.extend(glob.glob(include_directory_path + "/include/*.hpp.in"))
 
 src_directory_path = os.path.join(library_directory_path, 'src')
 source_files = glob.glob(src_directory_path + "/*.cpp")
