@@ -15,9 +15,14 @@ def prepend_code(text, prepending_characters):
 
     This function is used to insert commenting characters in front of a block of text.
     """
-    text = prepending_characters + text  # prepend the first line
-    text = text.replace('\n', '\n' + prepending_characters)  # prepend the other lines
-    return text
+    new_text = ""
+    for line in text.splitlines():
+        if line == "":
+            new_text += prepending_characters + line + '\n'
+        else:
+            new_text += prepending_characters + ' ' + line + '\n'
+
+    return new_text
 
 
 # Find the relevant files and directories
@@ -40,7 +45,7 @@ executable_files = glob.glob(tests_directory_path + "/**/*.cpp", recursive=True)
 # Add or update the header in every header (.hpp) or source file (.cpp)
 with open(arguments.header_path, 'r') as f_header:
     header_text = f_header.read()  # read in the whole header
-    header_text_commented = prepend_code(header_text, '// ')  # '//' for comments in C++
+    header_text_commented = prepend_code(header_text, '//')  # '//' for comments in C++
     header_text_commented += '\n'  # we need an extra (non-commented) newline at the end
 
     for filename in (header_files + source_files + executable_files):
